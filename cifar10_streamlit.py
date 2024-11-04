@@ -23,7 +23,7 @@ label = y_test[image_index][0]
 
 # Afficher l'image sélectionnée
 st.write(f"Classe réelle : {class_names[label]}")
-st.image(image, channels="RGB", use_column_width=True)
+st.image(image, channels="RGB", width=500)
 
 # Prédire la classe de l'image avec le modèle pré-entraîné
 st.write("**Résultat de la Classification :**")
@@ -43,15 +43,5 @@ predictions = model.predict(input_image)
 top_5 = tf.keras.applications.mobilenet_v2.decode_predictions(predictions, top=5)[0]
 for i, (imagenet_id, label, score) in enumerate(top_5):
     st.write(f"{i+1}. {label}: {score*100:.2f}%")
-
-# Afficher une matrice de quelques images du jeu de données CIFAR-10
-st.write("### Aperçu du jeu de données CIFAR-10")
-fig, axes = plt.subplots(3, 3, figsize=(6, 6))
-for i, ax in enumerate(axes.flat):
-    idx = np.random.randint(0, len(x_test))
-    ax.imshow(x_test[idx])
-    ax.set_title(class_names[y_test[idx][0]])
-    ax.axis("off")
-st.pyplot(fig)
 
 st.write("Cette application utilise MobileNetV2 pour prédire la classe des images CIFAR-10. Vous pouvez expérimenter en choisissant différentes images avec le sélecteur ci-dessus.")
